@@ -1,29 +1,74 @@
 package lightleaf;
 
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainFrame extends JFrame{
+	
+	MainPanel pan = new MainPanel();
+	CardLayout cl = new CardLayout();
+	
 	public MainFrame(){
 		this.setUndecorated(true);
 		this.setResizable(true);
 	    this.setTitle("LightLeaf mail");
 	    this.setSize(800, 900);
 	    this.setLocationRelativeTo(null);
-	        
-	    
-	    //Instanciation d'un objet JPanel
-	    MainPanel pan = new MainPanel();
-	    //Définition de sa couleur de fond
-	    pan.setBackground(Color.black);        
-	    
-	    
-	    //On prévient notre JFrame que notre JPanel sera son content pane
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
-	    this.setContentPane(pan);  
-	    this.setVisible(true);
 	    
+	    this.setLayout(new BorderLayout());    
+	    
+	    //Header -----------------------------
+	    HeaderPanel header = new HeaderPanel();
+	    
+	    //Menu -----------------------------
+	    MenuPanel menu = new MenuPanel();
+	    JButton inboxButton = new JButton("Inbox");
+	    inboxButton.addActionListener(new ActionListener(){
+	        public void actionPerformed(ActionEvent event){
+	          cl.show(pan,  "inbox");
+	        }
+	    });
+	    JButton sentButton = new JButton("Sent");
+	    sentButton.addActionListener(new ActionListener(){
+	        public void actionPerformed(ActionEvent event){
+	          cl.show(pan,  "sent");
+	        }
+	    });
+	    JButton trashButton = new JButton("Trash");
+	    trashButton.addActionListener(new ActionListener(){
+	        public void actionPerformed(ActionEvent event){
+	          cl.show(pan,  "trash");
+	        }
+	    });
+	    menu.setLayout(new BoxLayout(menu, BoxLayout.PAGE_AXIS));
+	    menu.add(inboxButton);
+	    menu.add(sentButton);
+	    menu.add(trashButton);
+	    
+	    //Main -----------------------------
+	    InboxPanel inbox = new InboxPanel();
+	    SentPanel sent = new SentPanel();
+	    TrashPanel trash = new TrashPanel();
+	    
+	    pan.setLayout(cl);
+	    
+	    pan.add(inbox, "inbox");
+	    pan.add(sent, "sent");
+	    pan.add(trash, "trash");
+	    
+	    this.getContentPane().add(header, BorderLayout.NORTH);  
+	    this.getContentPane().add(menu, BorderLayout.WEST);  
+	    this.getContentPane().add(pan, BorderLayout.EAST);  
+	    
+	    this.setVisible(true);
 	  }
 }

@@ -8,11 +8,7 @@ import javax.swing.JPanel;
  
 public class MainPanel extends JPanel { 
   public void paintComponent(Graphics g){
-	  
-	        
-	    
-   
-	g.setColor(Color.decode("#080808"));
+	/*g.setColor(Color.decode("#080808"));
     g.fillRect(0, 0, this.getWidth(), 40);
     
     g.setColor(Color.decode("#009933")); 
@@ -26,15 +22,10 @@ public class MainPanel extends JPanel {
     
     g.setColor(Color.white); 
     g.fillRect(150, 40, this.getWidth() - 80, this.getHeight() - 40);
-    
-  
-    
+
     Font font = new Font("Arial", Font.BOLD, 11);
     g.setFont(font);
     g.setColor(Color.white);          
-    g.drawString("LightLeaf", 15, 25);   
-    
-
+    g.drawString("LightLeaf", 15, 25);   */
   }     
-  
 }
