@@ -1,4 +1,4 @@
-package lightleaf;
+package lightleaf.panel.main;
 
 import java.awt.Color;
 import java.awt.Font;

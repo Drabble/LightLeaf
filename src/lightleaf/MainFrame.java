@@ -11,6 +11,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import lightleaf.button.MenuButton;
+import lightleaf.panel.HeaderPanel;
+import lightleaf.panel.MainPanel;
+import lightleaf.panel.MenuPanel;
+import lightleaf.panel.main.InboxPanel;
+import lightleaf.panel.main.SentPanel;
+import lightleaf.panel.main.TrashPanel;
+
 public class MainFrame extends JFrame{
 	
 	MainPanel pan = new MainPanel();
@@ -26,24 +34,24 @@ public class MainFrame extends JFrame{
 	    
 	    this.setLayout(new BorderLayout());    
 	    
-	    //Header -----------------------------
+	    //Header ----------------------------------------------------
 	    HeaderPanel header = new HeaderPanel();
 	    
-	    //Menu -----------------------------
+	    //Menu ---------------------------------------------------------
 	    MenuPanel menu = new MenuPanel();
-	    JButton inboxButton = new JButton("Inbox");
+	    MenuButton inboxButton = new MenuButton("Inbox");
 	    inboxButton.addActionListener(new ActionListener(){
 	        public void actionPerformed(ActionEvent event){
 	          cl.show(pan,  "inbox");
 	        }
 	    });
-	    JButton sentButton = new JButton("Sent");
+	    MenuButton sentButton = new MenuButton("Sent");
 	    sentButton.addActionListener(new ActionListener(){
 	        public void actionPerformed(ActionEvent event){
 	          cl.show(pan,  "sent");
 	        }
 	    });
-	    JButton trashButton = new JButton("Trash");
+	    MenuButton trashButton = new MenuButton("Trash");
 	    trashButton.addActionListener(new ActionListener(){
 	        public void actionPerformed(ActionEvent event){
 	          cl.show(pan,  "trash");
@@ -54,20 +62,22 @@ public class MainFrame extends JFrame{
 	    menu.add(sentButton);
 	    menu.add(trashButton);
 	    
-	    //Main -----------------------------
+	    //Main ------------------------------------------------------------
 	    InboxPanel inbox = new InboxPanel();
 	    SentPanel sent = new SentPanel();
 	    TrashPanel trash = new TrashPanel();
-	    
 	    pan.setLayout(cl);
-	    
 	    pan.add(inbox, "inbox");
 	    pan.add(sent, "sent");
 	    pan.add(trash, "trash");
 	    
+	    
+	    
+	    
+	    
 	    this.getContentPane().add(header, BorderLayout.NORTH);  
 	    this.getContentPane().add(menu, BorderLayout.WEST);  
-	    this.getContentPane().add(pan, BorderLayout.EAST);  
+	    this.getContentPane().add(pan, BorderLayout.CENTER);  
 	    
 	    this.setVisible(true);
 	  }
