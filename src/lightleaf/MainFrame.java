@@ -23,6 +23,10 @@ public class MainFrame extends JFrame{
 	
 	MainPanel pan = new MainPanel();
 	CardLayout cl = new CardLayout();
+	MenuPanel menu = new MenuPanel();
+    MenuButton inboxButton = new MenuButton("Inbox");
+	MenuButton trashButton = new MenuButton("Trash");
+	MenuButton sentButton = new MenuButton("Sent");
 	
 	public MainFrame(){
 		this.setUndecorated(true);
@@ -38,20 +42,16 @@ public class MainFrame extends JFrame{
 	    HeaderPanel header = new HeaderPanel();
 	    
 	    //Menu ---------------------------------------------------------
-	    MenuPanel menu = new MenuPanel();
-	    MenuButton inboxButton = new MenuButton("Inbox");
 	    inboxButton.addActionListener(new ActionListener(){
 	        public void actionPerformed(ActionEvent event){
 	          cl.show(pan,  "inbox");
 	        }
 	    });
-	    MenuButton sentButton = new MenuButton("Sent");
 	    sentButton.addActionListener(new ActionListener(){
 	        public void actionPerformed(ActionEvent event){
 	          cl.show(pan,  "sent");
 	        }
 	    });
-	    MenuButton trashButton = new MenuButton("Trash");
 	    trashButton.addActionListener(new ActionListener(){
 	        public void actionPerformed(ActionEvent event){
 	          cl.show(pan,  "trash");
@@ -70,11 +70,7 @@ public class MainFrame extends JFrame{
 	    pan.add(inbox, "inbox");
 	    pan.add(sent, "sent");
 	    pan.add(trash, "trash");
-	    
-	    
-	    
-	    
-	    
+
 	    this.getContentPane().add(header, BorderLayout.NORTH);  
 	    this.getContentPane().add(menu, BorderLayout.WEST);  
 	    this.getContentPane().add(pan, BorderLayout.CENTER);  

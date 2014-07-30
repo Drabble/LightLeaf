@@ -1,6 +1,7 @@
 package lightleaf.button;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -29,6 +30,7 @@ public class MenuButton extends JButton implements MouseListener{
 	this.setMaximumSize( new Dimension( 150, 40));
 	this.setMinimumSize(new Dimension( 150, 40));
     this.addMouseListener(this);
+    this.setCursor(new Cursor(Cursor.HAND_CURSOR));
   }
 
   public void paintComponent(Graphics g){
@@ -48,6 +50,7 @@ public class MenuButton extends JButton implements MouseListener{
   //Méthode appelée lors du survol de la souris
   public void mouseEntered(MouseEvent event) {
 	  this.c = Color.decode("#006633");
+      
   }
 
   //Méthode appelée lorsque la souris sort de la zone du bouton

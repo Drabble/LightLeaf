@@ -22,19 +22,21 @@ public class HeaderPanel extends JPanel {
 		this.setPreferredSize( new Dimension( this.getWidth(), 40) );
 		
 		try {
-	      maximize = ImageIO.read(new File("maximize.png"));
+	      maximize = ImageIO.read(new File("src/lightleaf/resources/images/maximize.png"));
 	    } catch (IOException e) {
 	      e.printStackTrace();
 	    }
 		
 		try {
-	      minimize = ImageIO.read(new File("minimize.png"));
+	      minimize = ImageIO.read(new File("src/lightleaf/resources/images/minimize.png"));
 	    } catch (IOException e) {
 	      e.printStackTrace();
 	    }
 		
 		try {
-	      exit = ImageIO.read(new File("exit.png"));
+			
+			System.out.println(System.getProperty("user.dir"));
+	      exit = ImageIO.read(new File("src/lightleaf/resources/images/exit.png"));
 	    } catch (IOException e) {
 	      e.printStackTrace();
 	    }
@@ -48,12 +50,11 @@ public class HeaderPanel extends JPanel {
 	    g.setColor(Color.white);          
 	    g.drawString("LightLeaf", 15, 25);   
 	    
-	    
 	    Graphics2D g2d = (Graphics2D)g;
 
-	    g2d.drawImage(exit, this.getWidth() - 15, 25, 32, 32, this);
-	    g2d.drawImage(maximize, this.getWidth() - 25, 25, 32, 32, this);
-	    g2d.drawImage(minimize, this.getWidth() - 35, 25, 32, 32, this);
+	    g2d.drawImage(exit, this.getWidth() - 25, 10, 8, 8, this);
+	    g2d.drawImage(maximize, this.getWidth() - 45, 10, 16, 16, this);
+	    g2d.drawImage(minimize, this.getWidth() - 65, 10, 16, 16, this);
 	}     
   
 }
