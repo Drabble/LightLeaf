@@ -52,9 +52,9 @@ public class HeaderPanel extends JPanel {
 	    
 	    Graphics2D g2d = (Graphics2D)g;
 
-	    g2d.drawImage(exit, this.getWidth() - 25, 10, 8, 8, this);
-	    g2d.drawImage(maximize, this.getWidth() - 45, 10, 16, 16, this);
-	    g2d.drawImage(minimize, this.getWidth() - 65, 10, 16, 16, this);
+	    g2d.drawImage(exit, this.getWidth() - 25, 10, 16, 16, this);
+	    g2d.drawImage(maximize, this.getWidth() - 50, 10, 16, 16, this);
+	    g2d.drawImage(minimize, this.getWidth() - 75, 10, 16, 16, this);
 	}     
   
 }

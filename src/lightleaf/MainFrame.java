@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import lightleaf.button.MenuButton;
@@ -56,10 +57,12 @@ public class MainFrame extends JFrame {
 	MenuButton draftButton = new MenuButton("Draft");
 	MenuButton settingButton = new MenuButton("Setting");
 	NewButton newButton = new NewButton("New");
-	SaveButton saveButton = new SaveButton("Save");
 	
-	private JTextField address = new JTextField("");
-	private JLabel addressLabel = new JLabel("Email Adress : ");	
+	JTextField address = new JTextField("");
+	JPasswordField password = new JPasswordField(10);
+	JLabel passwordLabel = new JLabel("Password : ");
+	JLabel addressLabel = new JLabel("Email Adress : ");	
+	SaveButton saveButton = new SaveButton("Save");
 	
 	//ArrayList<MenuButton> listMenuButton = new ArrayList<MenuButton>();
 
@@ -111,16 +114,21 @@ public class MainFrame extends JFrame {
 		inboxButton.setSelected(true);
 		
 		//Setting --------------------------------------------------------
-		JPanel top = new JPanel();
+		JPanel form = new JPanel();
 	    Font police = new Font("Arial", Font.PLAIN, 12);
-	    address.setOpaque(true);
-	    addressLabel.setOpaque(true);
 	    address.setFont(police);
 	    address.setPreferredSize(new Dimension(150, 30));
 	    address.setForeground(Color.BLACK);
-	    top.add(addressLabel);
-	    top.add(address);
-	    setting.add(top, BorderLayout.WEST);
+	    password.setFont(police);
+	    password.setPreferredSize(new Dimension(150, 30));
+	    password.setForeground(Color.BLACK);
+	    
+	    form.add(addressLabel);
+	    form.add(address);
+	    form.add(passwordLabel);
+	    form.add(password);
+	    form.add(saveButton);
+	    setting.add(form, BorderLayout.WEST);
 		
 		//Main ------------------------------------------------------------
 		pan.setLayout(cl);
