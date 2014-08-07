@@ -21,11 +21,13 @@ import sun.java2d.loops.FillRect;
 public class MenuButton extends JButton implements MouseListener{
   private String name;
   private Color c;
+  private boolean selected;
   
   public MenuButton(String str){
     this.name = str;
     this.setBorderPainted(false);
     this.c = Color.decode("#009933");
+    this.selected = false;
 	this.setPreferredSize( new Dimension( 150, 40) );
 	this.setMaximumSize( new Dimension( 150, 40));
 	this.setMinimumSize(new Dimension( 150, 40));
@@ -41,6 +43,18 @@ public class MenuButton extends JButton implements MouseListener{
     g.setColor(Color.white);          
     g.drawString(this.name, this.getWidth() / 2 - (this.getWidth() /  2 /4), (this.getHeight() / 2) + 5);
   }
+  
+  public void setSelected(boolean cond){
+	  this.selected = cond;
+	  if(this.selected){
+		  this.c = Color.decode("#006633");
+		  this.repaint();
+	  }
+	  else{
+		  this.c = Color.decode("#009933");
+		  this.repaint();
+	  }
+  }
 
   //Méthode appelée lors du clic de souris
   public void mouseClicked(MouseEvent event) {
@@ -55,7 +69,9 @@ public class MenuButton extends JButton implements MouseListener{
 
   //Méthode appelée lorsque la souris sort de la zone du bouton
   public void mouseExited(MouseEvent event) {
-	  this.c = Color.decode("#009933");
+	  if(!this.selected){
+		  this.c = Color.decode("#009933");
+	  }
   }
 
   //Méthode appelée lorsque l'on presse le bouton gauche de la souris

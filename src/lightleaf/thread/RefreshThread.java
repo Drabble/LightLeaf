@@ -1,6 +1,6 @@
 package lightleaf.thread;
 
-public class RefreshThread extends Thread {
+public class RefreshThread implements Runnable {
 
 	public RefreshThread(){
 	}
@@ -9,7 +9,7 @@ public class RefreshThread extends Thread {
 		for(int i = 0; i < 10; i++){
 			System.out.println("Reloading mails");
 			try {
-				this.sleep(10000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
