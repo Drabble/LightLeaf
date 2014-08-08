@@ -35,11 +35,11 @@ public class SaveButton extends JButton implements MouseListener{
 
   public void paintComponent(Graphics g){
 	g.setColor(c); 
-	g.fillRect(0, 0, 150, 40);
+	g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
     g.setFont(new Font("Arial", Font.BOLD, 11));
     g.setColor(Color.white);          
-    g.drawString(this.name, this.getWidth() / 2 - (this.getWidth() /  2 /4), (this.getHeight() / 2) + 5);
+    g.drawString(this.name, this.getWidth() / 2 - (this.getWidth() /  2 /6), (this.getHeight() / 2) + 5);
   }
 
   //Méthode appelée lors du clic de souris

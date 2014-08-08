@@ -28,7 +28,7 @@ public class NewButton extends JButton implements MouseListener{
   public NewButton(String str){
     this.name = str;
     this.setBorderPainted(false);
-    this.c = Color.decode("#e50000");
+    this.c = Color.decode("#005128");
     this.setMargin(new Insets(100, 100, 100, 100));
 	this.setPreferredSize( new Dimension( 80, 40) );
 	this.setMaximumSize( new Dimension( 80, 40));
@@ -39,7 +39,7 @@ public class NewButton extends JButton implements MouseListener{
 
   public void paintComponent(Graphics g){
 	g.setColor(c); 
-	g.fillRect(0, 0, 80, 40);
+	g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
     g.setFont(new Font("Arial", Font.BOLD, 11));
     g.setColor(Color.white);          
@@ -53,7 +53,6 @@ public class NewButton extends JButton implements MouseListener{
 
   //Méthode appelée lors du survol de la souris
   public void mouseEntered(MouseEvent event) {
-      
   }
 
   //Méthode appelée lorsque la souris sort de la zone du bouton
@@ -62,11 +61,11 @@ public class NewButton extends JButton implements MouseListener{
 
   //Méthode appelée lorsque l'on presse le bouton gauche de la souris
   public void mousePressed(MouseEvent event) {
-	  this.c = Color.decode("#cc0000");
+	  this.c = Color.decode("#003d1e");
   }
 
   //Méthode appelée lorsque l'on relâche le clic de souris
   public void mouseReleased(MouseEvent event) {   
-		this.c = Color.decode("#e50000");
+		this.c = Color.decode("#005128");
   }
 }

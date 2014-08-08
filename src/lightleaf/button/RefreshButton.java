@@ -35,7 +35,7 @@ public class RefreshButton extends JButton implements MouseListener{
 
   public void paintComponent(Graphics g){
 	g.setColor(c); 
-	g.fillRect(0, 0, 150, 40);
+	g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
     g.setFont(new Font("Arial", Font.BOLD, 11));
     g.setColor(Color.white);          

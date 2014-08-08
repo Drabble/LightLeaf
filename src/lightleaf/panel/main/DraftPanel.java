@@ -8,7 +8,7 @@ import javax.swing.JPanel;
  
 public class DraftPanel extends JPanel { 
   public void paintComponent(Graphics g){
-	  g.setColor(Color.ORANGE);
+	  g.setColor(Color.WHITE);
 	  g.fillRect(0, 0, this.getWidth(), this.getHeight());
   }     
 }

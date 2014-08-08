@@ -5,11 +5,16 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,15 +22,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import lightleaf.button.MenuButton;
 import lightleaf.button.NewButton;
 import lightleaf.button.SaveButton;
+import lightleaf.button.SendButton;
 import lightleaf.panel.HeaderPanel;
 import lightleaf.panel.MainPanel;
 import lightleaf.panel.MenuPanel;
 import lightleaf.panel.main.DraftPanel;
+import lightleaf.panel.main.FormPanel;
 import lightleaf.panel.main.InboxPanel;
 import lightleaf.panel.main.NewPanel;
 import lightleaf.panel.main.SentPanel;
@@ -40,29 +50,44 @@ public class MainFrame extends JFrame {
 
 	MenuPanel menu = new MenuPanel();
 	MainPanel pan = new MainPanel();
-	InboxPanel inbox = new InboxPanel();
-	SentPanel sent = new SentPanel();
-	TrashPanel trash = new TrashPanel();
-	StarredPanel starred = new StarredPanel();
-	DraftPanel draft = new DraftPanel();
-	SettingPanel setting = new SettingPanel();
+	InboxPanel inboxPanel = new InboxPanel();
+	SentPanel sentPanel = new SentPanel();
+	TrashPanel trashPanel = new TrashPanel();
+	StarredPanel starredPanel = new StarredPanel();
+	DraftPanel draftPanel = new DraftPanel();
+	SettingPanel settingPanel = new SettingPanel();
 	NewPanel newPanel = new NewPanel();
 	JPanel newMenuPanel = new JPanel();
 	JPanel mainMenuPanel = new JPanel();
 	
-	MenuButton inboxButton = new MenuButton("Inbox");
-	MenuButton trashButton = new MenuButton("Trash");
-	MenuButton sentButton = new MenuButton("Sent");
-	MenuButton starredButton = new MenuButton("Starred");
-	MenuButton draftButton = new MenuButton("Draft");
+	
+	MenuButton inboxButton = new MenuButton("inboxPanel");
+	MenuButton trashButton = new MenuButton("trashPanel");
+	MenuButton sentButton = new MenuButton("sentPanel");
+	MenuButton starredButton = new MenuButton("starredPanel");
+	MenuButton draftButton = new MenuButton("draftPanel");
 	MenuButton settingButton = new MenuButton("Setting");
 	NewButton newButton = new NewButton("New");
 	
+	FormPanel settingForm = new FormPanel();
 	JTextField address = new JTextField("");
+	JLabel addressLabel = new JLabel("Email Adress : ");
 	JPasswordField password = new JPasswordField(10);
 	JLabel passwordLabel = new JLabel("Password : ");
-	JLabel addressLabel = new JLabel("Email Adress : ");	
 	SaveButton saveButton = new SaveButton("Save");
+	
+	FormPanel newForm = new FormPanel();
+	JTextField to = new JTextField("");
+	JLabel toLabel = new JLabel("To : ");	
+	JTextField cc = new JTextField("");
+	JLabel ccLabel = new JLabel("Cc : ");	
+	JTextField subject = new JTextField("");
+	JLabel subjectLabel = new JLabel("Subject : ");	
+	JTextArea content = new JTextArea(35, 50);
+	JScrollPane scrollPane = new JScrollPane(content); 
+	SendButton sendButton = new SendButton("Send");
+	
+	Font textFieldPolice = new Font("Arial", Font.PLAIN, 12);
 	
 	//ArrayList<MenuButton> listMenuButton = new ArrayList<MenuButton>();
 
@@ -90,13 +115,6 @@ public class MainFrame extends JFrame {
 		settingButton.addActionListener(new SettingButtonListener());
 		newButton.addActionListener(new NewButtonListener());
 		
-		/*listMenuButton.add(inboxButton);
-		listMenuButton.add(sentButton);
-		listMenuButton.add(trashButton);
-		listMenuButton.add(starredButton);
-		listMenuButton.add(draftButton);
-		listMenuButton.add(settingButton);*/
-		
 		newMenuPanel.setLayout(new BoxLayout(newMenuPanel, BoxLayout.LINE_AXIS));
 		newMenuPanel.add(newButton, BorderLayout.CENTER);
 		
@@ -113,32 +131,116 @@ public class MainFrame extends JFrame {
 		
 		inboxButton.setSelected(true);
 		
+		//New --------------------------------------------------------
+		JPanel toPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		toPanel.setBackground(Color.WHITE);
+	    to.setFont(textFieldPolice);
+	    to.setPreferredSize(new Dimension(200, 40));
+	    to.setForeground(Color.BLACK);
+	    toPanel.add(toLabel);
+	    toPanel.add(to);
+	    
+	    JPanel ccPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		ccPanel.setBackground(Color.WHITE);
+	    cc.setFont(textFieldPolice);
+	    cc.setPreferredSize(new Dimension(200, 40));
+	    cc.setForeground(Color.BLACK);
+	    ccPanel.add(ccLabel);
+	    ccPanel.add(cc);
+	    
+	    JPanel subjectPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	    subjectPanel.setBackground(Color.WHITE);
+	    subject.setFont(textFieldPolice);
+	    subject.setPreferredSize(new Dimension(350, 40));
+	    subject.setForeground(Color.BLACK);
+	    subjectPanel.add(subjectLabel);
+	    subjectPanel.add(subject);
+	    
+	    JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	    contentPanel.setBackground(Color.WHITE);
+	    content.setFont(textFieldPolice);
+	    content.setForeground(Color.BLACK);
+	    content.setPreferredSize(new Dimension(350, 400));
+	    Border border = BorderFactory.createLineBorder(Color.BLACK);
+	    content.setBorder(BorderFactory.createCompoundBorder(border, 
+	                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+	    contentPanel.add(content);
+	    
+	    JPanel sendPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	    sendPanel.setBackground(Color.WHITE);
+	    sendPanel.add(sendButton);
+	    
+	    /*GridLayout glNew = new GridLayout();
+	    glNew.setColumns(2);
+	    glNew.setRows(5);
+	    glNew.setHgap(10);
+	    glNew.setVgap(10);
+	    newForm.setLayout(glNew);*/	
+	    newForm.setLayout(new BoxLayout(newForm, BoxLayout.Y_AXIS));
+	    newForm.setAlignmentX( Component.LEFT_ALIGNMENT );
+	    newForm.add(toPanel);
+	    newForm.add(ccPanel);
+	    newForm.add(subjectPanel);
+	    newForm.add(contentPanel);
+	    newForm.add(sendPanel);
+	    
+	    GridBagConstraints gbcNew = new GridBagConstraints();
+	    gbcNew.weightx = 1;
+	    gbcNew.weighty = 1;
+	    gbcNew.anchor = GridBagConstraints.NORTHWEST;
+	    
+	    gbcNew.gridx = 0;
+	    gbcNew.gridy = 0;
+	    newPanel.setLayout(new GridBagLayout());
+	    newPanel.add(newForm, gbcNew);
+	    JPanel newPaddingPanel = new JPanel();
+	    newPaddingPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
+	    newPaddingPanel.setBackground(Color.WHITE);
+	    newPaddingPanel.add(newPanel);
+		
 		//Setting --------------------------------------------------------
-		JPanel form = new JPanel();
-	    Font police = new Font("Arial", Font.PLAIN, 12);
-	    address.setFont(police);
+	    address.setFont(textFieldPolice);
 	    address.setPreferredSize(new Dimension(150, 30));
 	    address.setForeground(Color.BLACK);
-	    password.setFont(police);
+	    password.setFont(textFieldPolice);
 	    password.setPreferredSize(new Dimension(150, 30));
 	    password.setForeground(Color.BLACK);
 	    
-	    form.add(addressLabel);
-	    form.add(address);
-	    form.add(passwordLabel);
-	    form.add(password);
-	    form.add(saveButton);
-	    setting.add(form, BorderLayout.WEST);
+	    GridLayout glSetting = new GridLayout();
+	    glSetting.setColumns(1);
+	    glSetting.setRows(3);
+	    glSetting.setHgap(10);
+	    glSetting.setVgap(10);
+	    settingForm.setLayout(glSetting);	
+	    settingForm.add(addressLabel);
+	    settingForm.add(address);
+	    settingForm.add(passwordLabel);
+	    settingForm.add(password);
+	    settingForm.add(saveButton);
+	    
+	    GridBagConstraints gbcSetting = new GridBagConstraints();
+	    gbcSetting.weightx = 1;
+	    gbcSetting.weighty = 1;
+	    gbcSetting.anchor = GridBagConstraints.NORTHWEST;
+	    
+	    gbcSetting.gridx = 0;
+	    gbcSetting.gridy = 0;
+	    settingPanel.setLayout(new GridBagLayout());
+	    settingPanel.add(settingForm, gbcSetting);
+	    JPanel settingPaddingPanel = new JPanel();
+	    settingPaddingPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 5));
+	    settingPaddingPanel.setBackground(Color.WHITE);
+	    settingPaddingPanel.add(settingPanel);
 		
 		//Main ------------------------------------------------------------
 		pan.setLayout(cl);
-		pan.add(inbox, "inbox");
-		pan.add(sent, "sent");
-		pan.add(trash, "trash");
-		pan.add(starred, "starred");
-		pan.add(draft, "draft");
-		pan.add(setting, "setting");
-		pan.add(newPanel, "new");
+		pan.add(inboxPanel, "inboxPanel");
+		pan.add(sentPanel, "sentPanel");
+		pan.add(trashPanel, "trashPanel");
+		pan.add(starredPanel, "starredPanel");
+		pan.add(draftPanel, "draftPanel");
+		pan.add(settingPaddingPanel, "settingPanel");
+		pan.add(newPaddingPanel, "new");
 		
 		this.getContentPane().add(header, BorderLayout.NORTH);
 		this.getContentPane().add(menu, BorderLayout.WEST);
@@ -149,7 +251,7 @@ public class MainFrame extends JFrame {
 	
 	class InboxButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cl.show(pan, "inbox");
+			cl.show(pan, "inboxPanel");
 			Component[] menuButtons = mainMenuPanel.getComponents();
 			for(int i=0; i<menuButtons.length; i++)
 		    {
@@ -164,7 +266,7 @@ public class MainFrame extends JFrame {
 	}
 	class SentButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cl.show(pan, "sent");
+			cl.show(pan, "sentPanel");
 			Component[] menuButtons = mainMenuPanel.getComponents();
 			for(int i=0; i<menuButtons.length; i++)
 		    {
@@ -179,7 +281,7 @@ public class MainFrame extends JFrame {
 	}
 	class TrashButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cl.show(pan, "trash");
+			cl.show(pan, "trashPanel");
 			Component[] menuButtons = mainMenuPanel.getComponents();
 			for(int i=0; i<menuButtons.length; i++)
 		    {
@@ -194,7 +296,7 @@ public class MainFrame extends JFrame {
 	}
 	class StarredButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cl.show(pan, "starred");
+			cl.show(pan, "starredPanel");
 			Component[] menuButtons = mainMenuPanel.getComponents();
 			for(int i=0; i<menuButtons.length; i++)
 		    {
@@ -209,7 +311,7 @@ public class MainFrame extends JFrame {
 	}
 	class DraftButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cl.show(pan, "draft");
+			cl.show(pan, "draftPanel");
 			Component[] menuButtons = mainMenuPanel.getComponents();
 			for(int i=0; i<menuButtons.length; i++)
 		    {
@@ -224,7 +326,7 @@ public class MainFrame extends JFrame {
 	}
 	class SettingButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			cl.show(pan, "setting");
+			cl.show(pan, "settingPanel");
 			Component[] menuButtons = mainMenuPanel.getComponents();
 			for(int i=0; i<menuButtons.length; i++)
 		    {
