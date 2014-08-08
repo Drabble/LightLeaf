@@ -43,7 +43,7 @@ public class HeaderPanel extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g){
-		g.setColor(Color.decode("#080808"));
+		g.setColor(Color.decode("#001e0f"));
 	    g.fillRect(0, 0, this.getWidth(), 40);
 	    Font font = new Font("Arial", Font.BOLD, 11);
 	    g.setFont(font);

@@ -31,6 +31,7 @@ import lightleaf.button.MenuButton;
 import lightleaf.button.NewButton;
 import lightleaf.button.SaveButton;
 import lightleaf.button.SendButton;
+import lightleaf.model.Setting;
 import lightleaf.panel.HeaderPanel;
 import lightleaf.panel.MainPanel;
 import lightleaf.panel.MenuPanel;
@@ -46,6 +47,7 @@ import lightleaf.thread.RefreshThread;
 
 public class MainFrame extends JFrame {
 
+	Setting setting = new Setting();
 	CardLayout cl = new CardLayout();
 
 	MenuPanel menu = new MenuPanel();
@@ -114,6 +116,7 @@ public class MainFrame extends JFrame {
 		draftButton.addActionListener(new DraftButtonListener());
 		settingButton.addActionListener(new SettingButtonListener());
 		newButton.addActionListener(new NewButtonListener());
+		saveButton.addActionListener(new SaveButtonListener());
 		
 		newMenuPanel.setLayout(new BoxLayout(newMenuPanel, BoxLayout.LINE_AXIS));
 		newMenuPanel.add(newButton, BorderLayout.CENTER);
@@ -342,6 +345,20 @@ public class MainFrame extends JFrame {
 	class NewButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			cl.show(pan, "new");
+		}
+	}
+	class SaveButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String passwordText = "";
+			String addressText = "";
+			if(address.getText().length()>0){
+				addressText = address.getText();
+			}
+			if(password.getText().length()>0){
+				passwordText = password.getText();
+			}
+			setting.setAddress(addressText);
+			setting.setPassword(passwordText);
 		}
 	}
 }
