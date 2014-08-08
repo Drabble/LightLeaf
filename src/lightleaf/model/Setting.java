@@ -3,6 +3,8 @@ package lightleaf.model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -11,30 +13,15 @@ public class Setting {
 	private String address;
 	private String password;
 	
-	public void Setting(){
-		Properties props = new Properties();
-	    InputStream is = null;
-	 
-	    // First try loading from the current directory
-	    try {
-	        File f = new File("server.properties");
-	        is = new FileInputStream( f );
-	    }
-	    catch ( Exception e ) { is = null; }
-	 
-	    try {
-	        if ( is == null ) {
-	            // Try loading from classpath
-	            is = getClass().getResourceAsStream("src/lightleaf/resources/config/setting.conf");
-	        }
-	 
-	        // Try loading properties from the file (if found)
-	        props.load( is );
-	    }
-	    catch ( Exception e ) { }
-	 
-	    this.setAddress(props.getProperty("Address"));
-	    this.setPassword(props.getProperty("Password"));
+	public Setting(){
+		try (FileReader reader = new FileReader("src/lightleaf/resources/config/setting.conf")) {
+			Properties properties = new Properties();
+			properties.load(reader);
+			this.setAddress(properties.getProperty("Address"));
+		    this.setPassword(properties.getProperty("Password"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public String getPassword() {
 		return password;
@@ -43,12 +30,14 @@ public class Setting {
 		this.password = password;
 		try {
 	        Properties props = new Properties();
-	        if(this.address.length()>0){
+	        try{
 		        props.setProperty("Address", this.address);
 	        }
-	        if(this.password.length()>0){
-		        props.setProperty("Password", this.password);
+	        catch(Exception e){}
+	        try{
+	        	props.setProperty("Password", this.password);
 	        }
+	        catch(Exception e){}
 	        File f = new File("src/lightleaf/resources/config/setting.conf");
 	        OutputStream out = new FileOutputStream( f );
 	        props.store(out, "Settings");
@@ -64,12 +53,14 @@ public class Setting {
 		this.address = address;
 		try {
 	        Properties props = new Properties();
-	        if(this.address.length()>0){
+	        try{
 		        props.setProperty("Address", this.address);
 	        }
-	        if(this.password.length()>0){
-		        props.setProperty("Password", this.password);
+	        catch(Exception e){}
+	        try{
+	        	props.setProperty("Password", this.password);
 	        }
+	        catch(Exception e){}
 	        File f = new File("src/lightleaf/resources/config/setting.conf");
 	        OutputStream out = new FileOutputStream( f );
 	        props.store(out, "Settings");

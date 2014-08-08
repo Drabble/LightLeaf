@@ -31,6 +31,7 @@ import lightleaf.button.MenuButton;
 import lightleaf.button.NewButton;
 import lightleaf.button.SaveButton;
 import lightleaf.button.SendButton;
+import lightleaf.model.Mail;
 import lightleaf.model.Setting;
 import lightleaf.panel.HeaderPanel;
 import lightleaf.panel.MainPanel;
@@ -117,6 +118,7 @@ public class MainFrame extends JFrame {
 		settingButton.addActionListener(new SettingButtonListener());
 		newButton.addActionListener(new NewButtonListener());
 		saveButton.addActionListener(new SaveButtonListener());
+		sendButton.addActionListener(new SendButtonListener());
 		
 		newMenuPanel.setLayout(new BoxLayout(newMenuPanel, BoxLayout.LINE_AXIS));
 		newMenuPanel.add(newButton, BorderLayout.CENTER);
@@ -172,13 +174,7 @@ public class MainFrame extends JFrame {
 	    JPanel sendPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	    sendPanel.setBackground(Color.WHITE);
 	    sendPanel.add(sendButton);
-	    
-	    /*GridLayout glNew = new GridLayout();
-	    glNew.setColumns(2);
-	    glNew.setRows(5);
-	    glNew.setHgap(10);
-	    glNew.setVgap(10);
-	    newForm.setLayout(glNew);*/	
+
 	    newForm.setLayout(new BoxLayout(newForm, BoxLayout.Y_AXIS));
 	    newForm.setAlignmentX( Component.LEFT_ALIGNMENT );
 	    newForm.add(toPanel);
@@ -205,9 +201,13 @@ public class MainFrame extends JFrame {
 	    address.setFont(textFieldPolice);
 	    address.setPreferredSize(new Dimension(150, 30));
 	    address.setForeground(Color.BLACK);
+	    address.setText(setting.getAddress());
 	    password.setFont(textFieldPolice);
 	    password.setPreferredSize(new Dimension(150, 30));
 	    password.setForeground(Color.BLACK);
+	    password.setText(setting.getPassword());
+	    System.out.println(setting.getPassword());
+	    System.out.println(setting.getAddress());
 	    
 	    GridLayout glSetting = new GridLayout();
 	    glSetting.setColumns(1);
@@ -359,6 +359,28 @@ public class MainFrame extends JFrame {
 			}
 			setting.setAddress(addressText);
 			setting.setPassword(passwordText);
+		}
+	}
+	class SendButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Mail m = new Mail();
+			if(to.getText().length()>0){
+				m.setTo(to.getText());
+			}
+			if(cc.getText().length()>0){
+				m.setTo(cc.getText());
+			}
+			if(subject.getText().length()>0){
+				m.setTo(subject.getText());
+			}
+			if(content.getText().length()>0){
+				m.setTo(content.getText());
+			}
+			m.sendMail(setting);
+			to.setText("");
+			cc.setText("");
+			subject.setText("");
+			content.setText("");
 		}
 	}
 }
