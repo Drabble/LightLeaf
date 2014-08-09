@@ -206,8 +206,6 @@ public class MainFrame extends JFrame {
 	    password.setPreferredSize(new Dimension(150, 30));
 	    password.setForeground(Color.BLACK);
 	    password.setText(setting.getPassword());
-	    System.out.println(setting.getPassword());
-	    System.out.println(setting.getAddress());
 	    
 	    GridLayout glSetting = new GridLayout();
 	    glSetting.setColumns(1);
@@ -368,19 +366,19 @@ public class MainFrame extends JFrame {
 				m.setTo(to.getText());
 			}
 			if(cc.getText().length()>0){
-				m.setTo(cc.getText());
+				m.setCc(cc.getText());
 			}
 			if(subject.getText().length()>0){
-				m.setTo(subject.getText());
+				m.setSubject(subject.getText());
 			}
 			if(content.getText().length()>0){
-				m.setTo(content.getText());
+				m.setContent(content.getText());
 			}
-			m.sendMail(setting);
 			to.setText("");
 			cc.setText("");
 			subject.setText("");
 			content.setText("");
+			m.sendMail(setting);
 		}
 	}
 }

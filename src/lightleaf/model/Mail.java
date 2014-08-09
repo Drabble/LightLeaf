@@ -19,7 +19,7 @@ public class Mail extends MailAbstract{
 	private String subject;
 	private String sender;
 	private String to;
-	private String[] cc;
+	private String cc;
 	
 	public Mail(){    
 		notifyObserver("NewMail");
@@ -47,14 +47,11 @@ public class Mail extends MailAbstract{
  
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username));
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(this.getTo()));
+			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(this.getTo()));
 			message.setSubject(this.getSubject());
-			message.setText(this.getTo());
+			message.setText(this.getContent());
  
 			Transport.send(message);
- 
-			System.out.println("Done");
  
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
@@ -109,11 +106,11 @@ public class Mail extends MailAbstract{
 		this.to = to;
 	}
 
-	public String[] getCc() {
+	public String getCc() {
 		return cc;
 	}
 
-	public void setCc(String[] cc) {
-		this.cc = cc;
+	public void setCc(String string) {
+		this.cc = string;
 	}
 }
