@@ -1,9 +1,11 @@
 package lightleaf.model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -98,6 +100,47 @@ public class Mail extends MailAbstract{
             } catch (Exception e) {
                     System.out.println(e.toString());
             }
+    }
+    static public void showUnreadMails(Folder inbox){        
+        try {
+            FlagTerm ft = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
+            Message msg[] = inbox.search(ft);
+            System.out.println("MAILS: "+msg.length);
+            for(Message message:msg) {
+                try {
+                    System.out.println("DATE: "+message.getSentDate().toString());
+                    System.out.println("FROM: "+message.getFrom()[0].toString());            
+                    System.out.println("SUBJECT: "+message.getSubject().toString());
+                    System.out.println("CONTENT: "+message.getContent().toString());
+                    System.out.println("******************************************");
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    System.out.println("No Information");
+                }
+            }
+        } catch (MessagingException e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    static public void showAllMails(Folder inbox){
+        try {
+            Message msg[] = inbox.getMessages();
+            System.out.println("MAILS: "+msg.length);
+            for(Message message:msg) {
+                try {
+                    System.out.println("DATE: "+message.getSentDate().toString());
+                    System.out.println("FROM: "+message.getFrom()[0].toString());            
+                    System.out.println("SUBJECT: "+message.getSubject().toString());
+                    System.out.println("CONTENT: "+message.getContent().toString());
+                    System.out.println("******************************************");
+                } catch (Exception e) {
+                    System.out.println("No Information");
+                }
+            }
+        } catch (MessagingException e) {
+            System.out.println(e.toString());
+        }
     }
 
 	public String getType() {
