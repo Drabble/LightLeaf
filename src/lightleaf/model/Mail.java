@@ -1,14 +1,27 @@
 package lightleaf.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 
+import javax.mail.Address;
+import javax.mail.BodyPart;
+import javax.mail.Flags;
+import javax.mail.Flags.Flag;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.search.FlagTerm;
 
 import lightleaf.observer.Observer;
 
@@ -29,13 +42,14 @@ public class Mail extends MailAbstract{
 		final String username = setting.getAddress();
 		final String password = setting.getPassword();
  
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
- 
+		Properties props = new Properties(); 
+		try {
+			props.load(new FileInputStream(new File("src/lightleaf/resources/config/mail.conf")));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -57,6 +71,34 @@ public class Mail extends MailAbstract{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public static void readMail(Setting setting){
+		final String username = setting.getAddress();
+		final String password = setting.getPassword();
+		String receivingHost="imap.gmail.com";//for imap protocol
+		 
+        Properties props2=System.getProperties();
+        props2.setProperty("mail.store.protocol", "imaps");
+        // I used imaps protocol here
+        Session session2=Session.getDefaultInstance(props2, null);
+            try {
+                    Store store=session2.getStore("imaps");
+                    store.connect(receivingHost,username, password);
+                    Folder folder=store.getFolder("INBOX");//get inbox
+                    folder.open(Folder.READ_ONLY);//open folder only to read
+                    Message message[]=folder.getMessages();
+                    for(int i=0;i<message.length;i++){
+                        //print subjects of all mails in the inbox
+                        System.out.println(message[i].getSubject());
+                        //anything else you want
+                    }
+                    //close connections
+                    folder.close(true);
+                    store.close();
+            } catch (Exception e) {
+                    System.out.println(e.toString());
+            }
+    }
 
 	public String getType() {
 		return type;

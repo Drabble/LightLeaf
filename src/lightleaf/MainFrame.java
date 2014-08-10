@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
 	//ArrayList<MenuButton> listMenuButton = new ArrayList<MenuButton>();
 
 	public MainFrame() {
-		//this.setUndecorated(true);
+		this.setUndecorated(true);
 		this.setResizable(true);
 		this.setTitle("LightLeaf mail");
 		this.setSize(800, 900);
@@ -103,6 +103,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Thread refresh = new Thread(new RefreshThread());
 		refresh.start();
+		Mail.readMail(setting);
 		
 		this.setLayout(new BorderLayout());
 		
